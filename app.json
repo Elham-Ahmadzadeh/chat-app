@@ -1,21 +1,20 @@
 {
   "expo": {
-    "name": "chat",
+    "name": "wired brain chat",
+    "description": "coffe drinker kan chat together",
     "slug": "chat",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/wired-brain.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/wired-brain.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

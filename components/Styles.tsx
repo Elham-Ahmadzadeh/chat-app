@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 export default StyleSheet.create({
   container: {
@@ -47,6 +46,10 @@ export default StyleSheet.create({
     borderRadius: 4,
     flexGrow: 1,
     fontSize: 18,
+    paddingTop: 10,
+    marginBottom: 30,
+    paddingLeft: 3,
+    paddingBottom: 6,
   },
   flatListItem: {
     borderWidth: 1,

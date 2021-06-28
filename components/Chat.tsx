@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { ListRenderItem } from 'react-native'
-import { Button, TextInput, View, FlatList } from 'react-native'
+import {
+  Button,
+  TextInput,
+  View,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native'
+
 import { ChatItem, RenderChatItem } from './ChatItem'
 import Socket from './Socket'
 import Styles from './Styles'
@@ -25,8 +33,7 @@ const Chat = ({ username, image }: ChatProps) => {
     })()
     Socket.on('ReceiveMessage', (chatItem) => {
       setChatItemList((chatItemList) => {
-        if (chatItemList.find((i) => i.id == chatItem.id))
-          return chatItemList
+        if (chatItemList.find((i) => i.id == chatItem.id)) return chatItemList
         return [...chatItemList, chatItem]
       })
     })
@@ -43,26 +50,32 @@ const Chat = ({ username, image }: ChatProps) => {
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
       ></FlatList>
-      <View style={Styles.sendSection}>
-        <TextInput
-          style={Styles.chatTextInput}
-          value={chatInput}
-          onChangeText={(text) => setChatInput(text)}
-        ></TextInput>
-        <Button
-          title="send"
-          onPress={async() => {
-            await Socket.invoke('SendMessage', {
-              id: Math.random().toString(36).substring(7),
-              text: chatInput,
-              image: image,
-              timeStamp: Date.now(),
-              by: username,
-            })
-            setChatInput('')
-          }}
-        ></Button>
-      </View>
+
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        <View style={Styles.sendSection}>
+          <TextInput
+            style={Styles.chatTextInput}
+            value={chatInput}
+            onChangeText={(text) => setChatInput(text)}
+          ></TextInput>
+
+          <Button
+            title="send"
+            onPress={async () => {
+              await Socket.invoke('SendMessage', {
+                id: Math.random().toString(36).substring(7),
+                text: chatInput,
+                image: image,
+                timeStamp: Date.now(),
+                by: username,
+              })
+              setChatInput('')
+            }}
+          ></Button>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   )
 }

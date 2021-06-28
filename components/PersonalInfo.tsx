@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, Image, Button } from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  Button,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native'
 import ImageChooser from './ImageChooser'
 import Styles from './Styles'
 
@@ -18,11 +26,15 @@ function PersonalInfo({ onClosed }: PersonalInfoProps) {
       />
       <View style={Styles.enterYourName}>
         <Text style={Styles.nameText}>Please Enter your name</Text>
-        <TextInput
-          style={Styles.nameTextInput}
-          onChangeText={(text) => setName(text)}
-          value={name}
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
+          <TextInput
+            style={Styles.nameTextInput}
+            onChangeText={(text) => setName(text)}
+            value={name}
+          />
+        </KeyboardAvoidingView>
       </View>
       <ImageChooser onChangeImage={(image) => setImage(image)} />
       <Button title="start chatting" onPress={() => onClosed(name, image)} />
